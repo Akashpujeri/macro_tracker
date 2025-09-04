@@ -1,0 +1,41 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Macro Tracker{% endblock %}</title>
+
+  <!-- Page-specific extra CSS (e.g., login.css, register.css) -->
+  {% block extra_head %}{% endblock %}
+
+  <!-- Base CSS and Fonts -->
+  <link rel="stylesheet" href="{% static 'css/base.css' %}">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.5.0/css/all.css" integrity="sha384-..." crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+  {% if user.is_authenticated %}
+  <nav class="navbar">
+    <div class="logo">🥗 Macro Tracker</div>
+    <ul class="nav-links">
+      <li><a href="{% url 'home' %}" class="home-link"><i class="fas fa-home"></i> Home</a></li>
+      <li><a href="{% url 'profile' %}">My Profile</a></li>
+      <li><a href="{% url 'dashboard' %}"><i class="fas fa-chart-line"></i> Dashboard</a></li>
+      <li><a href="{% url 'set_goals' %}"><i class="fas fa-bullseye"></i> Goals</a></li>
+      <li><a href="{% url 'activity_calendar' %}">📅 View Calendar</a></li>
+      <li><a href="{% url 'food_templates' %}"><i class="fas fa-utensils"></i> Templates</a></li>
+      <li><a href="{% url 'create_article' %}"><i class="fas fa-pen-nib"></i> Add Article</a></li>
+      <li><a href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+    </ul>
+  </nav>
+  {% endif %}
+
+  <div class="container">
+    {% block content %}{% endblock %}
+  </div>
+
+</body>
+</html>

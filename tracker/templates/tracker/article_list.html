@@ -1,0 +1,16 @@
+{% extends 'tracker/base.html' %}
+
+{% block content %}
+<div class="container">
+  <h2>📚 Educational Articles</h2>
+  {% for article in articles %}
+    <div class="article-preview">
+      <h3><a href="{% url 'article_detail' article.id %}">{{ article.title }}</a></h3>
+      <p>{{ article.content|truncatewords:30 }}</p>
+      <hr>
+    </div>
+  {% empty %}
+    <p>No articles published yet.</p>
+  {% endfor %}
+</div>
+{% endblock %}

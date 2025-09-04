@@ -1,0 +1,49 @@
+{% extends 'tracker/base.html' %}
+{% load static %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'css/activity_calendar.css' %}">
+{% endblock %}
+
+
+{% block content %}
+<div class="container mx-auto px-4 py-6">
+    <h2 class="text-2xl font-bold mb-4">📅 Activity Calendar</h2>
+
+    <p class="mb-2">Select a date to view your macro activity:</p>
+
+    <form id="calendar-form" class="flex items-center gap-2 mb-4">
+        <input type="date" name="selected_date" id="selected_date" class="border p-2 rounded" required>
+        <button type="submit" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded">View Activity</button>
+    </form>
+
+    <p class="text-gray-500">This will show daily entries and a graph based on your selected date.</p>
+
+    {% if recent_dates %}
+    <div class="mt-6">
+        <h3 class="text-xl font-semibold mb-2">Recent Activity Dates:</h3>
+        <ul class="list-disc ml-6">
+            {% for day in recent_dates %}
+            <li>
+                <a href="{% url 'daily_activity' selected_date=day|date:'Y-m-d' %}" class="text-blue-500 hover:underline">
+                    {{ day|date:"F j, Y" }}
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+</div>
+
+<script>
+    document.getElementById('calendar-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const selectedDate = document.getElementById('selected_date').value;
+        if (selectedDate) {
+            window.location.href = `/daily-activity/${selectedDate}/`;
+        }
+    });
+</script>
+
+
+{% endblock %}

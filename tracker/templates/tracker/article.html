@@ -1,0 +1,13 @@
+{% extends 'tracker/base.html' %}
+{% block content %}
+<div class="container">
+  <h2>📰 Educational Articles</h2>
+  {% for article in articles %}
+    <div class="article">
+      <h3>{{ article.title }}</h3>
+      <small>{{ article.published_date|date:"F j, Y" }}</small>
+      <p>{{ article.content|truncatewords:60 }}</p>
+    </div>
+  {% endfor %}
+</div>
+{% endblock %}

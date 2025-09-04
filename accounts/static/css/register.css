@@ -1,0 +1,117 @@
+/* Animation */
+@keyframes fadeInSlideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Body styling */
+body {
+  background: linear-gradient(to right, #f3f4f6, #e5e7eb);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+}
+
+/* Register container */
+.register-container {
+  background-color: #ffffff;
+  padding: 30px 40px;
+  border-radius: 10px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 450px;
+  animation: fadeInSlideUp 0.5s ease;
+}
+
+/* Heading */
+.register-container h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  font-size: 1.8rem;
+  color: #111827;
+}
+
+/* Form group */
+.register-form .form-group {
+  margin-bottom: 16px;
+}
+
+.register-form label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 500;
+  color: #374151;
+}
+
+.register-form input[type="text"],
+.register-form input[type="password"],
+.register-form input[type="email"] {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  font-size: 1rem;
+  background-color: #f9fafb;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.register-form input:focus {
+  border-color: #6366f1;
+  outline: none;
+  background-color: #fff;
+}
+
+/* Submit button */
+.register-button {
+  width: 100%;
+  padding: 12px;
+  background-color: #6366f1;
+  border: none;
+  color: white;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.register-button:hover {
+  background-color: #4f46e5;
+}
+
+/* Extra links */
+.extra-links {
+  margin-top: 20px;
+  text-align: center;
+  font-size: 0.95rem;
+}
+
+.extra-links a {
+  color: #6d28d9;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.extra-links a:hover {
+  text-decoration: underline;
+}
+
+/* Error box */
+.form-errors {
+  background-color: #fee2e2;
+  border: 1px solid #fca5a5;
+  padding: 12px 16px;
+  border-radius: 6px;
+  margin-bottom: 16px;
+  color: #991b1b;
+  font-size: 0.95rem;
+}

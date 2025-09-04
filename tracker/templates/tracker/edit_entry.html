@@ -1,0 +1,34 @@
+{% extends 'tracker/base.html' %}
+{% load static %}
+{% block title %}Edit Entry{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'css/edit_entry.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+  <h2>Edit Food Entry</h2>
+
+  {% if messages %}
+    {% for message in messages %}
+      <div class="toast">{{ message }}</div>
+    {% endfor %}
+  {% endif %}
+
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Save Changes</button>
+  </form>
+
+  <a href="{% url 'dashboard' %}">⬅ Back to Dashboard</a>
+</div>
+
+<script>
+  setTimeout(() => {
+    const toast = document.querySelector('.toast');
+    if (toast) toast.remove();
+  }, 4000);
+</script>
+{% endblock %}

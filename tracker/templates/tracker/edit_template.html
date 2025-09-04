@@ -1,0 +1,19 @@
+{% extends 'tracker/base.html' %}
+{% load static %}
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'css/edit_template.css' %}">
+{% endblock %}
+
+{% block title %}Edit Food Template{% endblock %}
+
+{% block content %}
+<div class="container">
+  <h2>✏️ Edit Food Template</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Save Changes</button>
+    <a href="{% url 'food_templates' %}" class="btn btn-secondary">Cancel</a>
+  </form>
+</div>
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends 'tracker/base.html' %}
+{% load static %}
+{% block title %}Set Goals{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'css/set_goals.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="goal-form-container">
+  <h2>🎯 Set Your Daily Nutrition Goals</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Save Goals</button>
+  </form>
+  <script>
+  document.getElementById("set-goal-form").addEventListener("submit", function(event) {
+    const maxCalories = 2000;  // Replace with dynamic value if available
+    const enteredCalories = parseFloat(document.getElementById("id_calories_goal").value);
+
+    if (enteredCalories > maxCalories) {
+      event.preventDefault();
+      alert(`⚠️ Your entered goal (${enteredCalories} kcal) exceeds your daily target of ${maxCalories} kcal.`);
+    }
+  });
+</script>
+</div>
+{% endblock %}

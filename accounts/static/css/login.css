@@ -1,0 +1,125 @@
+/* Full-page background */
+/* Animation keyframes */
+@keyframes fadeInSlideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+body {
+  background: linear-gradient(to right, #f3f4f6, #e5e7eb);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+.login-container {
+  background-color: #ffffff;
+  padding: 30px 40px;
+  border-radius: 10px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 420px;
+  animation: slide-in 0.4s ease;
+}
+
+.login-container h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  font-size: 1.8rem;
+  color: #111827;
+}
+
+.login-form .form-field {
+  margin-bottom: 15px;
+}
+
+.login-form label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 500;
+  color: #374151;
+}
+
+.login-form input[type="text"],
+.login-form input[type="password"] {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  font-size: 1rem;
+  background-color: #f9fafb;
+  transition: border-color 0.2s;
+}
+
+.login-form input[type="text"]:focus,
+.login-form input[type="password"]:focus {
+  border-color: #6366f1;
+  outline: none;
+  background-color: #fff;
+}
+
+.form-remember {
+  margin: 15px 0;
+  font-size: 0.95rem;
+  color: #374151;
+}
+
+.login-button {
+  width: 100%;
+  padding: 12px;
+  background-color: #6366f1;
+  border: none;
+  color: white;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.login-button:hover {
+  background-color: #4f46e5;
+}
+
+.extra-links {
+  text-align: center;
+  margin-top: 15px;
+}
+
+.extra-links a {
+  color: #6d28d9;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.extra-links a:hover {
+  text-decoration: underline;
+}
+
+.form-errors {
+  background-color: #fee2e2;
+  border: 1px solid #fca5a5;
+  padding: 10px 15px;
+  border-radius: 6px;
+  margin-bottom: 15px;
+  color: #991b1b;
+  font-size: 0.95rem;
+}
+
+@keyframes slide-in {
+  from {
+    transform: translateY(50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}

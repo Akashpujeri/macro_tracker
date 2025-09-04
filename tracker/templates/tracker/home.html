@@ -1,0 +1,66 @@
+{% extends 'tracker/base.html' %}
+{% load static %}
+{% block title %}Welcome to Macro Tracker{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'css/advanced_home.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+{% endblock %}
+
+{% block content %}
+<div class="hero">
+  <div class="hero-content">
+    <h1>Track Smarter. Eat Healthier. Live Better.</h1>
+    <p>Join thousands optimizing their nutrition with ease.</p>
+    <div class="cta-buttons">
+      <a href="{% url 'register' %}" class="btn">🚀 Start Tracking</a>
+      <a href="{% url 'login' %}" class="btn btn-outline">🔐 Login</a>
+      <a href="{% url 'register' %}" class="btn-large">Create Your Free Account</a>
+    </div>
+  </div>
+</div>
+
+<section class="features">
+  <h2>Why Choose Macro Tracker?</h2>
+  <div class="features-grid">
+    <div class="feature">
+      <h3>📊 Macro Tracking</h3>
+      <p>Log calories, protein, carbs, and fat with ease.</p>
+    </div>
+    <div class="feature">
+      <h3>🧠 Smart Goals</h3>
+      <p>Set intelligent daily goals based on your profile.</p>
+    </div>
+    
+    <div class="feature">
+      <h3>⚡ Fast Dashboard</h3>
+      <p>Visualize your progress with beautiful graphs.</p>
+    </div>
+  </div>
+</section>
+
+<section class="testimonials">
+  <h2>What Users Say</h2>
+  <div class="testimonial-slider">
+    <div class="testimonial">"Macro Tracker helped me lose 5kg in 2 months!" – Priya</div>
+    <div class="testimonial">"Easy to use and super helpful for gym goals." – Rahul</div>
+    <div class="testimonial">"Loved the smart recommendations feature!" – Sara</div>
+  </div>
+</section>
+
+<section class="call-to-action">
+  <h2>Start Your Journey Today</h2>
+</section>
+
+<footer class="footer">
+  <div class="footer-links">
+    <a href="#">Privacy Policy</a>
+    <a href="#">Terms</a>
+    <a href="#">Contact</a>
+  </div>
+  <div class="footer-icons">
+    <a href="#"><i class="fab fa-github"></i></a>
+    <a href="#"><i class="fab fa-linkedin"></i></a>
+  </div>
+</footer>
+{% endblock %}

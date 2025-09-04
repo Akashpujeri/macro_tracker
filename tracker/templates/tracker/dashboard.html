@@ -1,0 +1,186 @@
+{% extends 'tracker/base.html' %}
+{% load static %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+<!-- jQuery UI for autocomplete -->
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+  <h2>Welcome to Your Calorie Tracker 💪</h2>
+
+  {% if messages %}
+    {% for message in messages %}
+      <div class="alert alert-{{ message.tags }} mt-3" role="alert">
+        {{ message }}
+      </div>
+    {% endfor %}
+  {% endif %}
+
+  {% if streak_count > 0 %}
+  <div style="background-color: #FEF3C7; color: #92400E; padding: 1rem; border-radius: 0.5rem; margin-bottom: 1rem;">
+    🔥 You've logged your macros for <strong>{{ streak_count }}</strong> day{{ streak_count|pluralize }} in a row!
+  </div>
+  {% else %}
+  <div style="background-color: #FECACA; color: #991B1B; padding: 1rem; border-radius: 0.5rem; margin-bottom: 1rem;">
+    ❌ Streak broken! Log today to restart!
+  </div>
+  {% endif %}
+
+
+  <!-- Template dropdown -->
+  <div class="form-group">
+    <label for="template-select">🍱 Select a Food Template</label>
+    <select id="template-select" class="form-control">
+      <option value="">-- Select a Template --</option>
+      {% for template in templates %}
+        <option 
+          value="{{ template.id }}"
+          data-name="{{ template.name }}"
+          data-calories="{{ template.calories }}"
+          data-protein="{{ template.protein }}"
+          data-carbs="{{ template.carbs }}"
+          data-fat="{{ template.fat }}">
+          {{ template.name }}
+        </option>
+      {% empty %}
+        <option disabled>No saved templates</option>
+      {% endfor %}
+    </select>
+  </div>
+
+  <!-- Entry form -->
+  <form method="post" action="{% url 'dashboard' %}">
+    {% csrf_token %}
+    <div class="form-group">
+      <label for="id_date">Date</label>
+      {{ form.date }}
+    </div>
+
+    <div class="form-group">
+      <label for="id_food_name">Food Name</label>
+      <div class="voice-input-wrapper">
+        {{ form.food_name }}
+        <button type="button" id="start-voice" title="Use voice input">🎙️</button>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="id_calories">Calories</label>
+      {{ form.calories }}
+    </div>
+
+    <div class="form-group">
+      <label for="id_protein">Protein (g)</label>
+      {{ form.protein }}
+    </div>
+
+    <div class="form-group">
+      <label for="id_carbs">Carbs (g)</label>
+      {{ form.carbs }}
+    </div>
+
+    <div class="form-group">
+      <label for="id_fat">Fat (g)</label>
+      {{ form.fat }}
+    </div>
+
+    <button type="submit">Add Entry</button>
+  </form>
+  <div class="mt-4 d-flex gap-2">
+    <a href="{% url 'activity_calendar' %}" class="btn btn-outline-primary">
+      <i class="bi bi-calendar-event"></i> View You Daily Activity 
+    </a>
+  </div>
+  
+  {% if messages %}
+    {% for message in messages %}
+      <div class="alert alert-warning">
+        {{ message }}
+      </div>
+    {% endfor %}
+  {% endif %}
+</div>
+
+<!-- Template select autofill -->
+<script>
+  document.getElementById('template-select').addEventListener('change', function () {
+    const selected = this.options[this.selectedIndex];
+    if (selected.value !== "") {
+      document.getElementById('id_food_name').value = selected.dataset.name;
+      document.getElementById('id_calories').value = selected.dataset.calories;
+      document.getElementById('id_protein').value = selected.dataset.protein;
+      document.getElementById('id_carbs').value = selected.dataset.carbs;
+      document.getElementById('id_fat').value = selected.dataset.fat;
+    }
+  });
+</script>
+
+<!-- AJAX food autofill from DB -->
+<script>
+$(function () {
+  $("#id_food_name").autocomplete({
+    source: function (request, response) {
+      $.ajax({
+        url: "/ajax/food-search/",
+        data: {
+          term: request.term
+        },
+        success: function (data) {
+          response(data);
+        }
+      });
+    },
+    minLength: 2,
+    select: function (event, ui) {
+      $("#id_calories").val(ui.item.calories);
+      $("#id_protein").val(ui.item.protein);
+      $("#id_carbs").val(ui.item.carbs);
+      $("#id_fat").val(ui.item.fat);
+    }
+  });
+});
+</script>
+
+<!-- Voice input -->
+<script>
+  const voiceBtn = document.getElementById('start-voice');
+  const foodInput = document.getElementById('id_food_name');
+
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (SpeechRecognition) {
+    const recognition = new SpeechRecognition();
+    recognition.lang = 'en-US';
+    recognition.interimResults = false;
+
+    voiceBtn.addEventListener('click', () => {
+      recognition.start();
+      voiceBtn.innerText = "🎙️ Listening...";
+    });
+
+    recognition.onresult = (event) => {
+      const transcript = event.results[0][0].transcript;
+      foodInput.value = transcript;
+      voiceBtn.innerText = "🎙️";
+    };
+
+    recognition.onend = () => {
+      voiceBtn.innerText = "🎙️";
+    };
+
+    recognition.onerror = (event) => {
+      alert("Speech Recognition Error: " + event.error);
+      voiceBtn.innerText = "🎙️";
+    };
+  } else {
+    voiceBtn.disabled = true;
+    voiceBtn.title = "Voice input not supported in this browser";
+  }
+</script>
+{% endblock %}

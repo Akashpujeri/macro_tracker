@@ -1,0 +1,49 @@
+{% extends 'tracker/base.html' %}
+{% load static %}
+{% block title %}Food Templates{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'css/food_templates.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="template-container">
+  <h2>🍱 Saved Food Templates</h2>
+
+  <form method="post" class="template-form">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Save Template</button>
+    
+  </form>
+
+  <hr>
+
+  <h3>Your Templates</h3>
+  <ul class="template-list">
+    {% for template in templates %}
+      <li>
+        <strong>{{ template.name }}</strong> - 
+        {{ template.calories }} kcal, 
+        {{ template.protein }}g protein, 
+        {{ template.fat }}g fat, 
+        {{ template.carbs }}g carbs
+
+      <a href="{% url 'edit_template' template.id %}" class="edit-btn">✏️ Edit</a>
+      
+      <a href="{% url 'delete_template' template.id %}" class="delete-btn" onclick="return confirm('Are you sure?')">🗑️ Delete</a>
+      </li>
+    {% empty %}
+      <li>No templates saved yet.</li>
+    {% endfor %}
+
+  {% if messages %}
+    <div class="toast-container">
+      {% for message in messages %}
+        <div class="toast">{{ message }}</div>
+      {% endfor %}
+    </div>
+  {% endif %}
+  </ul>
+</div>
+{% endblock %}

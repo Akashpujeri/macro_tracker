@@ -1,0 +1,21 @@
+{% extends 'tracker/base.html' %}
+{% load static %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'css/profile.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2>{{ request.user.username }}'s Profile</h2>
+    <ul>
+        <h3>Logged in as: {{ request.user.username }}</h3>
+        <li><strong>Gender:</strong> {{ profile.gender }}</li>
+        <li><strong>Age:</strong> {{ profile.age }}</li>
+        <li><strong>Weight:</strong> {{ profile.weight }} kg</li>
+        <li><strong>Height:</strong> {{ profile.height }} cm</li>
+        <li><strong>Activity Level:</strong> {{ profile.get_activity_level_display }}</li>
+        <li><strong>Goal:</strong> {{ profile.get_goal_display }}</li>
+    </ul>
+</div>
+{% endblock %}

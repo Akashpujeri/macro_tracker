@@ -1,0 +1,6 @@
+<h2>Set Up Your Macro Goals</h2>
+<form method="POST">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Save Goals</button>
+</form>
